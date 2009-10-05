@@ -36,7 +36,9 @@ public class SignedRequestsHelper {
   private static final String REQUEST_URI = "/onca/xml";
   private static final String REQUEST_METHOD = "GET";
 
+  // use xml-uk.amznxslt.com for xslt requests, or ecs.amazonaws.co.uk for others
   private String endpoint = "ecs.amazonaws.co.uk"; // must be lowercase
+ 
   // change this so reads from properties file
   private String awsAccessKeyId = "1QHTGHD6D2FH3K1XC382";
   private String awsSecretKey = "HE9iMl9Mv5iaEgiWDvn6ZX6Vdvn8jNmRLyqdNN03";
