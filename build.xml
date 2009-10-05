@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<project name="ep-store" default="install-app" basedir=".">
+	<!--
+	change values for paths below as required to suit your machine
+	check paths to TOMCAT, MYSQL.JAR and ECLIPSE for JUNIT
+	
+	fix username, etc for tomcat-users
+	-->
+
+	<property name="app.name" value="ep-store" />
+	<property name="tomcat.home" value="C:/java/apache-tomcat-6.0.18" />
+	<property name="jasper.dir" location="${tomcat.home}/lib" />
+	<property name="deploy.home" value="${tomcat.home}/webapps" />
+	<property name="dist.home" value="${deploy.home}" />
+
+	<property name="build.dir" value="build" />
+	<property name="build.classes.dir" value="${basedir}/build/classes" />
+	<property name="build.deploy.dir" value="${basedir}/build/deploy" />
+	<property name="build.war.dir" value="${basedir}/build/war" />
+
+	<property name="servlet.jar" location="${jasper.dir}/servlet-api.jar" />
+	<property name="mysql.jar" location="${jasper.dir}/mysql-connector-java-5.1.6-bin.jar" />
+	<property name="junit.jar" location="C:\java\eclipse\plugins\org.junit_3.8.2.v20080602-1318\junit.jar" />
+
+	<!-- values for username and password are also set in 
+	     tomcat.home/conf/tomcat-users.xml file -->
+	<property name="manager.url" value="http://localhost:8080/manager" />
+	<property name="manager.username" value="captain" />
+	<property name="manager.password" value="trips" />
+	<property name="war.path" value="file://${deploy.home}/${app.name}" />
+	<property name="remove.path" value="/${app.name}" />
+
+	<path id="compile.classpath">
+		<pathelement location="${build.classes.dir}" />
+		<pathelement location="${servlet.jar}" />
+		<pathelement location="${mysql.jar}" />
+		<pathelement location="${junit.jar}" />
+	</path>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${build.deploy.dir}" />
+		<mkdir dir="${build.war.dir}" />
+	</target>
+	<target name="compile" depends="init">
+		<javac srcdir="src" destdir="${build.classes.dir}">
+			<classpath refid="compile.classpath">
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="${dist.home}/${app.name}.jar" basedir="${build.classes.dir}">
+		</jar>
+	</target>
+	<target name="war" depends="compile">
+		<delete dir="${build.classes.dir}/WEB-INF" />
+		<mkdir dir="${build.classes.dir}/WEB-INF/classes/" />
+
+		<war warfile="${build.deploy.dir}/${app.name}.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent">
+				<include name="**/**" />
+			</fileset>
+			<webinf dir="WebContent/WEB-INF">
+				<exclude name="web.xml" />
+				<include name="taglib.tld" />
+				<include name="*.xml" />
+			</webinf>
+			<classes dir="${build.classes.dir}" includes="uk/ac/abdn/csd/etech/epstore/**" />
+			<lib dir="WebContent/WEB-INF/lib" includes="**.jar" />
+		</war>
+	</target>
+
+	<target name="unwar" depends="war">
+
+		<unwar src="${build.deploy.dir}/${app.name}.war" dest="${build.war.dir}" />
+	</target>
+	<target name="ftp" depends="unwar">
+		<ftp server="ftp.abdn.ac.uk" port="21" remotedir="apache-tomcat-6.0.13/webapps/" userid="csc228" password="7iiwf9Y9" passive="yes" depends="yes" binary="no">
+			<!-- fileset dir="${build.war.dir}">
+				<include name="**/**" />
+			</fileset -->
+			<fileset dir="${build.deploy.dir}">
+				<include name="**.war" />
+			</fileset>
+		</ftp>
+	</target>
+
+	<!-- target name="deploy-war" depends="war">
+			<description>Deploys the war file to the server for testing.</description>
+			<copy todir="${deploy.home}">
+				<fileset dir="${build.deploy.dir}" includes="*.war">
+				</fileset>
+			</copy>
+		</target -->
+
+	<target name="checkDeployed">
+		<available property="alreadyDeployed" file="${deploy.home}/${app.name}.war" />
+	</target>
+
+	<target name="remove" if="alreadyDeployed" depends="checkDeployed">
+		<remove url="${manager.url}" username="${manager.username}" password="${manager.password}" path="${remove.path}" />
+	</target>
+
+	<target name="reload">
+		<reload url="${manager.url}" username="${manager.username}" password="${manager.password}" path="/${app.name}" />
+	</target>
+
+	<target name="install">
+		<install url="${manager.url}" username="${manager.username}" password="${manager.password}" path="/${app.name}" war="${war.path}.war" />
+	</target>
+	<target name="install-app" depends="ftp">
+	</target>
+</project>
