@@ -33,8 +33,8 @@ String signedUri = sgh.sign(myparams);
 
 <ul>
 <li>Amazon: </li>
-<li><a href="<%=signedUri %>">Punk books</a></li>
-<li><a href="indexStyle.jsp">Punk book with style</a></li>
+<li><a href="<%=signedUri %>">Punk books raw</a></li>
+<li><a href="indexStyle.jsp">Punk books with style sheet</a></li>
 
 <p>We could also use the details from <a href="http://www.audioscrobbler.net/data/webservices/">Audioscrobbler</a> that is tied to Last.fm to get further details about the 
 Punk artists that we're interested in.</p>
