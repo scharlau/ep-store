@@ -63,14 +63,10 @@ public class ParseItems extends DefaultHandler {
 		
 		if (localName.equals("ItemAttributes")) {
 			
-			System.out.println("item attribute");
 		     name.clear();
-			
 		}
 
 		if (localName.equals("SmallImage")) {
-			
-			System.out.println("small image");
 		     name.clear();
 		     image = true;
 			
@@ -88,7 +84,6 @@ public class ParseItems extends DefaultHandler {
 			
 			 name.add(contents.toString());
 			currentDvdItem.setActor(name.get(0));
-				System.out.println();
 				if(name.size()>1)				/* If more than 1 actor exists, store the second actor as 
 
 well*/
@@ -104,6 +99,7 @@ well*/
 		
 		if (localName.equals("Title")) {
 			currentDvdItem.setTitle(contents.toString());
+			System.out.println("Title: " + currentDvdItem.getTitle());
 		}
 		
 		
@@ -114,7 +110,7 @@ well*/
 		if (localName.equals("URL")&&image) {
 			String s = contents.toString();
 			currentDvdItem.setImage(s);
-			System.out.println("image:   "+s);
+		//	System.out.println("image:   "+s);
 			image = false;
 		}
 		

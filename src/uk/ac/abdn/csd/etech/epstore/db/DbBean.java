@@ -18,7 +18,7 @@ import javax.naming.NamingException;
  */
 public class DbBean {
 
-	String dbURL = "jdbc:mysql://localhost/ep-store?user=username&password=mypassword";
+	String dbURL = "jdbc:mysql://localhost/ep-store?user=myusert&password=mypassword";
 	String dbDriver = "com.mysql.jdbc.Driver";
 
 	private Connection dbCon;
