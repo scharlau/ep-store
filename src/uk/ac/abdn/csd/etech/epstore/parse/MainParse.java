@@ -33,6 +33,9 @@ public class MainParse {
 			
 			// can set different variables for different tasks and loop through them as required
 			
+			// need to modify this to work with signed requests as on the web page examples, and have
+			// it use the SignedRequestAuthenticator
+			
 			// String parseREST =
 			// "http://ecs.amazonaws.co.uk/onca/xml?Service=AWSECommerceService&Version=2005-03-23&Operation=ItemSearch&ContentType=text%2Fxml&SubscriptionId=" + mySubID + "&SearchIndex=DVD&Keywords=thriller&ResponseGroup=Images,Small"
 			// +i;
