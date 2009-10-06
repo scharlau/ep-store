@@ -1,9 +1,10 @@
 package uk.ac.abdn.csd.etech.epstore.parse;
 
 /**
- * example taken from Amazon Product Advertising API developer guide in October 2009
+ * example taken and adapted from Amazon Product Advertising API developer guide in October 2009
  * API version 2009-10-01 at
  * http://docs.amazonwebservices.com/AWSECommerceService/latest/DG/index.html?rest-signature.html
+ * By Bruce Scharlau, b.scharlau@abdn.ac.uk
  */
 
 import java.io.UnsupportedEncodingException;
@@ -40,8 +41,8 @@ public class SignedRequestsHelper {
   private String endpoint = "xml-uk.amznxslt.com"; // must be lowercase
  
   // change this so reads from properties file
-  private String awsAccessKeyId = "1QHTGHD6D2FH3K1XC382";
-  private String awsSecretKey = "HE9iMl9Mv5iaEgiWDvn6ZX6Vdvn8jNmRLyqdNN03";
+  private String awsAccessKeyId = "accessKey";
+  private String awsSecretKey = "secretKey";
 
   private SecretKeySpec secretKeySpec = null;
   private Mac mac = null;
