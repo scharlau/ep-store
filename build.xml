@@ -79,8 +79,10 @@
 
 		<unwar src="${build.deploy.dir}/${app.name}.war" dest="${build.war.dir}" />
 	</target>
+	
+	<!-- to use ftp you need to add extra libraries to path as explained in ant documentation -->
 	<target name="ftp" depends="unwar">
-		<ftp server="ftp.abdn.ac.uk" port="21" remotedir="apache-tomcat-6.0.13/webapps/" userid="csc228" password="7iiwf9Y9" passive="yes" depends="yes" binary="no">
+		<ftp server="ftp.abdn.ac.uk" port="21" remotedir="apache-tomcat-6.0.13/webapps/" userid="mypass" password="secret" passive="yes" depends="yes" binary="no">
 			<!-- fileset dir="${build.war.dir}">
 				<include name="**/**" />
 			</fileset -->
