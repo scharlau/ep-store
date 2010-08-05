@@ -35,12 +35,6 @@ public class DbBean {
 		// jdk 1.6 method
 		//dbCon = DriverManager.getConnection(dbURL);
 
-		// using data connection for pool
-		// Context initContext = new InitialContext();
-		// Context envContext = (Context)initContext.lookup("java:/comp/env");
-		// DataSource ds = (DataSource)envContext.lookup("jdbc/ep-store");
-		// dbCon = ds.getConnection();
-
 		return true;
 	}
 
@@ -101,12 +95,7 @@ public class DbBean {
 	}
 
 	public ResultSet doQuery(StringBuffer qry) throws NamingException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		// Connection con = null;
-		// Statement stmt = null;
-
-		// set variables to take in resultset values
-		// String returnedUserName = null;
-		// String returnedPassword = null;
+		
 		ResultSet rs = null;
 
 		try {
@@ -122,5 +111,4 @@ public class DbBean {
 		}
 		return rs;
 	}
-
 }

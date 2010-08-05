@@ -45,7 +45,6 @@ public class Dvd {
 		this.title = title;
 		this.genre =genre;
 		this.image =image;
-
 	}
 	
 	public Dvd() {
@@ -61,7 +60,7 @@ public class Dvd {
 		StringBuffer insertSQL = new StringBuffer(1024);
 		insertSQL.append("INSERT INTO dvds (ASIN, detailsPageURL, title, actor, actor2, director, genre, dateadded, image) VALUES (?,?,?,?,?,?,?,?,?)");
 
-System.out.println("attempting to save DVD: " + this.title);		
+		System.out.println("attempting to save DVD: " + this.title);		
 		
 		PreparedStatement prstmt = db.prepareStatement(insertSQL.toString());
 		
@@ -135,7 +134,6 @@ System.out.println("attempting to save DVD: " + this.title);
 		this.title = title;
 	}
 	
-	
 	public String getGenre() {
 		return genre;
 	}
@@ -150,7 +148,6 @@ System.out.println("attempting to save DVD: " + this.title);
 	public void setDateAdded(String dateadded) {
 		this.dateadded = dateadded;
 	}
-	
 	
 	public String getImage() {
 		return image;
@@ -168,7 +165,6 @@ System.out.println("attempting to save DVD: " + this.title);
 			ResultSet rs = null;
 					qry.append("select * from dvds where id=" + dvd_id);
 			
-
 			rs = db.doQuery(qry);
 
 			while (rs.next()) {
@@ -202,19 +198,16 @@ System.out.println("attempting to save DVD: " + this.title);
 		Vector<Dvd> items = new Vector<Dvd>();
 		DbBean db = new DbBean();
 		
-		
 			StringBuffer qry = new StringBuffer(1024);
 			ResultSet rs = null;
 					qry.append("select * from dvds");
 			
-
 			rs = db.doQuery(qry);
 
 			while (rs.next()) {
 				
 				Dvd dvd = new Dvd();
 
-				// first retrieve items from db
 				id = rs.getInt("id");
 				ASIN = rs.getString("ASIN");
 				director = rs.getString("director");
