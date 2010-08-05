@@ -21,7 +21,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 DROP TABLE IF EXISTS `books`;
 CREATE TABLE IF NOT EXISTS `books` (
-  `id` tinyint(12) NOT NULL auto_increment,
+  `id` int(15) NOT NULL auto_increment,
   `detailsPageURL` varchar(245) NOT NULL,
   `author` varchar(40) NOT NULL,
   `manufacturer` varchar(50) NOT NULL,
@@ -53,7 +53,7 @@ INSERT INTO `books` (`id`, `detailsPageURL`, `author`, `manufacturer`, `title`, 
 --
 
 CREATE TABLE IF NOT EXISTS `dvds` (
-  `id` tinyint(15) NOT NULL auto_increment,
+  `id` int(15) NOT NULL auto_increment,
   `ASIN` varchar(15) NOT NULL,
   `detailsPageURL` varchar(245) NOT NULL,
   `actor` varchar(50) NOT NULL,

@@ -51,69 +51,63 @@ public class ParseItems extends DefaultHandler {
 
 	public void startElement(String namespaceURI, String localName,
 			String qName, Attributes attr) throws SAXException {
-	//	System.out.println("startElement: " + localName.toString());
-	//	System.out.println("contents: " + contents.toString());
+		// System.out.println("startElement: " + localName.toString());
+		// System.out.println("contents: " + contents.toString());
 		contents.reset();
 
 		if (localName.equals("Item")) {
 			currentDvdItem = new Dvd();
-			System.out.println("new dvd");
+			System.out.println("new dvd being parsed");
 			orderItems.addElement(currentDvdItem);
 		}
-		
+
 		if (localName.equals("ItemAttributes")) {
-			
-		     name.clear();
+			name.clear();
 		}
 
 		if (localName.equals("SmallImage")) {
-		     name.clear();
-		     image = true;
-			
+			name.clear();
+			image = true;
 		}
 
 	} // end of startElement
 
 	public void endElement(String namespaceURI, String localName, String qName)
 			throws SAXException {
-
-		
-		if (localName.equals("Actor")) {					/* Checks to see if the namespace matches a given 	
-
-								dvd attribute and then stores the record. */
-			
-			 name.add(contents.toString());
+		/*
+		 * Checks to see if the namespace matches a given
+		 * dvd attribute and then stores the record.
+		 */
+		if (localName.equals("Actor")) { 
+			name.add(contents.toString());
 			currentDvdItem.setActor(name.get(0));
-				if(name.size()>1)				/* If more than 1 actor exists, store the second actor as 
-
-well*/
-				currentDvdItem.setActor2(name.get(1));			
+			if (name.size() > 1)
+				currentDvdItem.setActor2(name.get(1));
 		}
-		
+
 		if (localName.equals("DetailPageURL")) {
 			currentDvdItem.setDetailsPageURL(contents.toString());
 		}
 		if (localName.equals("Director")) {
-			currentDvdItem.setDirector(contents.toString());	
+			currentDvdItem.setDirector(contents.toString());
 		}
-		
+
 		if (localName.equals("Title")) {
 			currentDvdItem.setTitle(contents.toString());
 			System.out.println("Title: " + currentDvdItem.getTitle());
 		}
-		
-		
+
 		if (localName.equals("ASIN")) {
 			currentDvdItem.setASIN(contents.toString());
 		}
 
-		if (localName.equals("URL")&&image) {
+		if (localName.equals("URL") && image) {
 			String s = contents.toString();
 			currentDvdItem.setImage(s);
-		//	System.out.println("image:   "+s);
+			// System.out.println("image:   "+s);
 			image = false;
 		}
-		
+
 	}// end endElement
 
 	public void characters(char[] ch, int start, int length)
@@ -140,8 +134,8 @@ well*/
 			ParseItems aws = new ParseItems();
 			xr.setContentHandler(aws);
 
-			 //parse the file
-			 //xr.parse(new InputSource( new FileReader(filePath)));
+			// parse the file
+			// xr.parse(new InputSource( new FileReader(filePath)));
 			xr.parse(url);
 
 			Vector<Dvd> myDvds = aws.getOrderItems();

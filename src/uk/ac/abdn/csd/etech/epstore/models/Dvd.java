@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 import javax.naming.NamingException;
 
@@ -26,7 +27,7 @@ public class Dvd {
 	String director = "";
 	String detailsPageURL = "";
 	String title = "";					
-	String genre = "kids"; 				// have to change genre when inserting data
+	String genre = "myGenre"; 				// have to change genre when inserting data
 	String image="";
 	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     java.util.Date date = new java.util.Date();
@@ -58,10 +59,11 @@ public class Dvd {
 		DbBean db = new DbBean();
 		db.connect();		
 		StringBuffer insertSQL = new StringBuffer(1024);
-		insertSQL.append("INSERT INTO dvds (ASIN, detailsPageURL, title, actor, actor2, director, genre, dateadded, image) VALUES		(?,?,?,?,?,?,?,?,?)");
+		insertSQL.append("INSERT INTO dvds (ASIN, detailsPageURL, title, actor, actor2, director, genre, dateadded, image) VALUES (?,?,?,?,?,?,?,?,?)");
 
-		PreparedStatement prstmt = db.prepareStatement(insertSQL.toString());
+System.out.println("attempting to save DVD: " + this.title);		
 		
+		PreparedStatement prstmt = db.prepareStatement(insertSQL.toString());
 		
 		prstmt.setString(1,this.ASIN);
 		prstmt.setString(2, this.detailsPageURL);
@@ -72,7 +74,6 @@ public class Dvd {
 		prstmt.setString(7,genre);
 		prstmt.setString(8,dateadded);
 		prstmt.setString(9,image);
-
 
 		prstmt.executeUpdate();
 		prstmt.close();
@@ -195,6 +196,49 @@ public class Dvd {
 			}
 		
 		return dvd;
+	}
+	
+	public Vector<Dvd> getDvds() throws SQLException, NamingException, InstantiationException, IllegalAccessException, ClassNotFoundException{
+		Vector<Dvd> items = new Vector<Dvd>();
+		DbBean db = new DbBean();
+		
+		
+			StringBuffer qry = new StringBuffer(1024);
+			ResultSet rs = null;
+					qry.append("select * from dvds");
+			
+
+			rs = db.doQuery(qry);
+
+			while (rs.next()) {
+				
+				Dvd dvd = new Dvd();
+
+				// first retrieve items from db
+				id = rs.getInt("id");
+				ASIN = rs.getString("ASIN");
+				director = rs.getString("director");
+				title = rs.getString("title");
+				detailsPageURL = rs.getString("detailsPageURL");
+				actor = rs.getString("actor");
+				actor2 = rs.getString("actor2");
+				genre = rs.getString("genre");
+				image = rs.getString("image");
+
+				dvd.setId(id);
+				dvd.setASIN(ASIN);
+				dvd.setDirector(director);
+				dvd.setDetailsPageURL(detailsPageURL);
+				dvd.setActor(actor);
+				dvd.setActor2(actor2);
+				dvd.setTitle(title);
+				dvd.setImage(image);
+				dvd.setGenre(genre);
+				
+				items.addElement(dvd);
+			}
+		
+		return items;
 	}
 	
 }

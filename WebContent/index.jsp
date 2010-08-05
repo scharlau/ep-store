@@ -39,5 +39,7 @@ String signedUri = sgh.sign(myparams);
 <p>We could also use the details from <a href="http://www.audioscrobbler.net/data/webservices/">Audioscrobbler</a> that is tied to Last.fm to get further details about the 
 Punk artists that we're interested in.</p>
 <p><a href="books.jsp">The Books so far</p>
+
+<p><a href="dvds.jsp">The Dvds so far</p>
 </body>
 </html>

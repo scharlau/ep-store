@@ -8,7 +8,7 @@
 	-->
 
 	<property name="app.name" value="ep-store" />
-	<property name="tomcat.home" value="C:/java/apache-tomcat-6.0.18" />
+	<property name="tomcat.home" value="C:/java/apache-tomcat-6.0.20" />
 	<property name="jasper.dir" location="${tomcat.home}/lib" />
 	<property name="deploy.home" value="${tomcat.home}/webapps" />
 	<property name="dist.home" value="${deploy.home}" />
@@ -20,7 +20,7 @@
 
 	<property name="servlet.jar" location="${jasper.dir}/servlet-api.jar" />
 	<property name="mysql.jar" location="${jasper.dir}/mysql-connector-java-5.1.6-bin.jar" />
-	<property name="junit.jar" location="C:\java\eclipse\plugins\org.junit_3.8.2.v20080602-1318\junit.jar" />
+	<property name="junit.jar" location="C:\Java\eclipse\plugins\org.junit_3.8.2.v20090203-1005\junit.jar" />
 
 	<!-- values for username and password are also set in 
 	     tomcat.home/conf/tomcat-users.xml file -->
@@ -35,6 +35,11 @@
 		<pathelement location="${servlet.jar}" />
 		<pathelement location="${mysql.jar}" />
 		<pathelement location="${junit.jar}" />
+		<fileset dir="${tomcat.home}/lib" id="id">
+							<include name="*.jar" />
+
+						</fileset>
+
 	</path>
 
 	<target name="clean">
@@ -49,6 +54,7 @@
 	<target name="compile" depends="init">
 		<javac srcdir="src" destdir="${build.classes.dir}">
 			<classpath refid="compile.classpath">
+				
 			</classpath>
 		</javac>
 	</target>
@@ -79,7 +85,7 @@
 
 		<unwar src="${build.deploy.dir}/${app.name}.war" dest="${build.war.dir}" />
 	</target>
-	
+
 	<!-- to use ftp you need to add extra libraries to path as explained in ant documentation -->
 	<target name="ftp" depends="unwar">
 		<ftp server="ftp.abdn.ac.uk" port="21" remotedir="apache-tomcat-6.0.13/webapps/" userid="mypass" password="secret" passive="yes" depends="yes" binary="no">
