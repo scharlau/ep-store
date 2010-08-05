@@ -41,8 +41,8 @@ public class SignedRequestsHelper {
   private String endpoint = "xml-uk.amznxslt.com"; // must be lowercase
  
   // change this so reads from properties file
-  private String awsAccessKeyId = "1QHTGHD6D2FH3K1XC382";
-  private String awsSecretKey = "HE9iMl9Mv5iaEgiWDvn6ZX6Vdvn8jNmRLyqdNN03";
+  private String awsAccessKeyId = "my accese key ID";
+  private String awsSecretKey = "my secret access key";
 
   private SecretKeySpec secretKeySpec = null;
   private Mac mac = null;
