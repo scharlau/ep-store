@@ -27,10 +27,7 @@ myparams.put("ResponseGroup", "ItemAttributes,Offers,Images");
 
 String signedUri = sgh.sign(myparams);
 
-
 %>
-
-
 <ul>
 <li>Amazon: </li>
 <li><a href="<%=signedUri %>">Punk books raw</a></li>

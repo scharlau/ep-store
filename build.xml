@@ -86,25 +86,13 @@
 		<unwar src="${build.deploy.dir}/${app.name}.war" dest="${build.war.dir}" />
 	</target>
 
-	<!-- to use ftp you need to add extra libraries to path as explained in ant documentation -->
-	<target name="ftp" depends="unwar">
-		<ftp server="ftp.abdn.ac.uk" port="21" remotedir="apache-tomcat-6.0.13/webapps/" userid="mypass" password="secret" passive="yes" depends="yes" binary="no">
-			<!-- fileset dir="${build.war.dir}">
-				<include name="**/**" />
-			</fileset -->
-			<fileset dir="${build.deploy.dir}">
-				<include name="**.war" />
-			</fileset>
-		</ftp>
-	</target>
-
-	<!-- target name="deploy-war" depends="war">
+	<target name="deploy-war" depends="war">
 			<description>Deploys the war file to the server for testing.</description>
 			<copy todir="${deploy.home}">
 				<fileset dir="${build.deploy.dir}" includes="*.war">
 				</fileset>
 			</copy>
-		</target -->
+		</target>
 
 	<target name="checkDeployed">
 		<available property="alreadyDeployed" file="${deploy.home}/${app.name}.war" />
@@ -121,6 +109,6 @@
 	<target name="install">
 		<install url="${manager.url}" username="${manager.username}" password="${manager.password}" path="/${app.name}" war="${war.path}.war" />
 	</target>
-	<target name="install-app" depends="ftp">
-	</target>
+	
+
 </project>
